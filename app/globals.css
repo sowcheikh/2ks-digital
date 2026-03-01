@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+/* Class-based dark mode for Tailwind v4 */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Brand tokens */
+@theme {
+  --color-primary:        #002B5C;
+  --color-primary-light:  #003d80;
+  --color-primary-dark:   #001a3a;
+  --color-secondary:      #E31837;
+  --color-secondary-light:#f02040;
+  --color-secondary-dark: #b01228;
+}
+
+/* ── Light / Dark CSS variables ─────────────────────────────────────── */
+:root {
+  --bg:          #ffffff;
+  --bg-card:     #f4f7fc;
+  --bg-subtle:   #eef2f9;
+  --fg:          #0f172a;
+  --fg-muted:    #475569;
+  --border:      #e2e8f0;
+}
+
+.dark {
+  --bg:          #020d1f;
+  --bg-card:     #071428;
+  --bg-subtle:   #0c1d3a;
+  --fg:          #e8f0fe;
+  --fg-muted:    #94a3b8;
+  --border:      #1e3a5f;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+/* ── Gradient helpers ────────────────────────────────────────────────── */
+.gradient-primary {
+  background: linear-gradient(135deg, #002B5C 0%, #003d80 100%);
+}
+
+.gradient-hero {
+  background: linear-gradient(135deg, #001a3a 0%, #002B5C 50%, #003060 100%);
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, #E31837, #ff4d6d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Glass card ──────────────────────────────────────────────────────── */
+.glass-card {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ── Float animation ─────────────────────────────────────────────────── */
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* ── Pulse ring (WhatsApp button) ────────────────────────────────────── */
+@keyframes pulse-ring {
+  0%   { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+.pulse-ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: #25d366;
+  animation: pulse-ring 2s ease-out infinite;
+  z-index: -1;
+}
+
+/* ── Scrollbar styling ───────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: #002B5C;
+  border-radius: 9999px;
+}
+
+/* ── Selection ───────────────────────────────────────────────────────── */
+::selection {
+  background: #E31837;
+  color: #fff;
+}
