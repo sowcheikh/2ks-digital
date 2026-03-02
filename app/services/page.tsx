@@ -35,9 +35,10 @@ const services = [
     title: 'Développement Mobile',
     tagline: 'iOS & Android avec une UX premium',
     description:
-      "Applications mobiles natives ou cross-platform avec React Native. De la conception UX/UI à la publication sur les stores App Store et Google Play.",
+      "Applications mobiles natives ou cross-platform avec React Native et Flutter. De la conception UX/UI à la publication sur les stores App Store et Google Play.",
     features: [
       'React Native cross-platform',
+      'Flutter (iOS & Android)',
       'Design UX/UI natif',
       'Publication App Store & Google Play',
       'Notifications push & offline',
@@ -51,11 +52,12 @@ const services = [
     title: 'Backend & API',
     tagline: 'Architectures robustes et scalables',
     description:
-      "Développement d'APIs REST et GraphQL avec Node.js et NestJS. Bases de données relationnelles (PostgreSQL) et NoSQL. Architecture microservices et serverless.",
+      "Développement d'APIs REST et GraphQL avec Node.js, NestJS et Laravel. Bases de données relationnelles (PostgreSQL, MySQL) et NoSQL. Architecture microservices et serverless.",
     features: [
       'APIs REST & GraphQL',
       'Node.js / NestJS / Express',
-      'PostgreSQL / MongoDB',
+      'Laravel / PHP',
+      'PostgreSQL / MySQL / MongoDB',
       'Authentication JWT & OAuth',
       'Déploiement cloud (Vercel, AWS)',
     ],

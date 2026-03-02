@@ -15,14 +15,14 @@ const services = [
     icon: Smartphone,
     title: 'Développement Mobile',
     description:
-      'Applications iOS et Android natives ou cross-platform (React Native) avec une UX soignée.',
+      'Applications iOS et Android natives ou cross-platform (React Native, Flutter) avec une UX soignée.',
     color: '#E31837',
   },
   {
     icon: Server,
     title: 'Backend & API',
     description:
-      'APIs REST/GraphQL robustes et scalables avec Node.js, NestJS et PostgreSQL.',
+      'APIs REST/GraphQL robustes et scalables avec Node.js, NestJS, Laravel et PostgreSQL/MySQL.',
     color: '#003d80',
   },
   {

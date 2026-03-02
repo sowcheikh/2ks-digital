@@ -189,7 +189,7 @@ export default function AboutPage() {
 
                 <div className="mt-5 space-y-3 text-[var(--fg-muted)] text-sm leading-relaxed">
                   <p>
-                    Développeur full-stack passionné avec plus de 3 ans
+                    Développeur full-stack passionné avec plus de 5 ans
                     d&apos;expérience dans la conception de solutions web et
                     mobile scalables.
                   </p>
