@@ -37,6 +37,9 @@ export async function POST(request: Request) {
     }
 
     await resend.emails.send({
+      // Avant vérification domaine → utilise onboarding@resend.dev (sandbox Resend)
+      // Après vérification de 2ksdigital.com sur resend.com → remplace par :
+      // from: 'Contact 2ks digital <contact@2ksdigital.com>',
       from: 'Contact 2ks digital <onboarding@resend.dev>',
       to: 'contact@2ksdigital.com',
       replyTo: email,
