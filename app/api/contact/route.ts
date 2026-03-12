@@ -36,12 +36,12 @@ export async function POST(request: Request) {
       );
     }
 
-    await resend.emails.send({
-      // Avant vérification domaine → utilise onboarding@resend.dev (sandbox Resend)
-      // Après vérification de 2ksdigital.com sur resend.com → remplace par :
-      // from: 'Contact 2ks digital <contact@2ksdigital.com>',
+    // En sandbox Resend, "to" doit être l'email du compte Resend. Mets-le dans .env : CONTACT_TO_EMAIL=ton@email.com
+    const toEmail = process.env.CONTACT_TO_EMAIL ?? 'contact@2ksdigital.com';
+
+    const { data, error } = await resend.emails.send({
       from: 'Contact 2ks digital <onboarding@resend.dev>',
-      to: 'contact@2ksdigital.com',
+      to: toEmail,
       replyTo: email,
       subject: `[2ks digital] Nouveau message de ${name}`,
       html: `
@@ -76,11 +76,30 @@ export async function POST(request: Request) {
       `,
     });
 
+    if (error) {
+      console.error('Resend error:', error);
+      return NextResponse.json(
+        {
+          error:
+            process.env.NODE_ENV === 'development'
+              ? `Email non envoyé: ${error.message}`
+              : "L'envoi a échoué. Réessayez ou contactez-nous par WhatsApp.",
+        },
+        { status: 502 },
+      );
+    }
+
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Contact API error:', error);
+    const message = error instanceof Error ? error.message : 'Erreur inconnue';
     return NextResponse.json(
-      { error: "Une erreur est survenue. Veuillez réessayer." },
+      {
+        error:
+          process.env.NODE_ENV === 'development'
+            ? message
+            : "Une erreur est survenue. Veuillez réessayer.",
+      },
       { status: 500 },
     );
   }
