@@ -37,7 +37,7 @@ export async function POST(request: Request) {
     }
 
     // En sandbox Resend, "to" doit être l'email du compte Resend. Mets-le dans .env : CONTACT_TO_EMAIL=ton@email.com
-    const toEmail = process.env.CONTACT_TO_EMAIL ?? 'contact@2ksdigital.com';
+    const toEmail = process.env.CONTACT_TO_EMAIL ?? '2ksdigitaldev@gmail.com';
 
     const { data, error } = await resend.emails.send({
       from: 'Contact 2ks digital <onboarding@resend.dev>',
