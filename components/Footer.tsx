@@ -204,7 +204,7 @@ export default function Footer() {
       </div>
 
       {/* Mentions légales */}
-      <div className="border-t border-white/8">
+      {/* <div className="border-t border-white/8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4
           flex flex-wrap items-center justify-center gap-x-6 gap-y-1">
           <span className="text-xs text-white/40 font-medium">
@@ -221,7 +221,7 @@ export default function Footer() {
             <span className="text-white/55 font-semibold tracking-wide">SN-DKR-2026-A-30203</span>
           </span>
         </div>
-      </div>
+      </div> */}
 
       {/* Copyright */}
       <div className="border-t border-white/8">
