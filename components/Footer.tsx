@@ -213,12 +213,12 @@ export default function Footer() {
           <span className="hidden sm:block text-white/20">·</span>
           <span className="text-xs text-white/35">
             NINEA&nbsp;
-            <span className="text-white/55 font-semibold tracking-wide">123456789</span>
+            <span className="text-white/55 font-semibold tracking-wide">009679921</span>
           </span>
           <span className="hidden sm:block text-white/20">·</span>
           <span className="text-xs text-white/35">
             RCCM&nbsp;
-            <span className="text-white/55 font-semibold tracking-wide">SN-DKR-2026-A-12345</span>
+            <span className="text-white/55 font-semibold tracking-wide">SN-DKR-2026-A-30203</span>
           </span>
         </div>
       </div>
