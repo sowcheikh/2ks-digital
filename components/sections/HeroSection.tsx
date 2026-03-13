@@ -143,7 +143,7 @@ export default function HeroSection() {
             className="flex flex-wrap justify-center gap-10 pt-10 border-t border-white/10 mt-4 w-full max-w-xl"
           >
             {[
-              { value: '50+', label: 'Projets livrés' },
+              { value: '10+', label: 'Projets livrés' },
               { value: '100%', label: 'Clients satisfaits' },
               { value: '5 ans', label: "D'expérience" },
             ].map((stat) => (
