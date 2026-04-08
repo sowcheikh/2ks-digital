@@ -11,10 +11,11 @@ import {
 } from 'lucide-react';
 
 const navLinks = [
-  { label: 'Accueil',   href: '/' },
-  { label: 'Services',  href: '/services' },
-  { label: 'À propos',  href: '/about' },
-  { label: 'Contact',   href: '/contact' },
+  { label: 'Accueil',    href: '/' },
+  { label: 'Services',   href: '/services' },
+  { label: 'Campagnes',  href: '/campaigns' },
+  { label: 'À propos',   href: '/about' },
+  { label: 'Contact',    href: '/contact' },
 ];
 
 const services = [

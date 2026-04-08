@@ -8,10 +8,11 @@ import { Sun, Moon, Menu, X, ExternalLink } from 'lucide-react';
 import { useTheme } from './ThemeProvider';
 
 const navLinks = [
-  { label: 'Accueil',   href: '/',         external: false },
-  { label: 'Services',  href: '/services', external: false },
-  { label: 'À propos',  href: '/about',    external: false },
-  { label: 'Contact',   href: '/contact',  external: false },
+  { label: 'Accueil',    href: '/',          external: false },
+  { label: 'Services',   href: '/services',  external: false },
+  { label: 'Campagnes',  href: '/campaigns', external: false },
+  { label: 'À propos',   href: '/about',     external: false },
+  { label: 'Contact',    href: '/contact',   external: false },
   {
     label: 'Portfolio',
     href: 'https://cheikhsow.netlify.app',
