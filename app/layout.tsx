@@ -2,9 +2,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import ThemeProvider from '@/components/ThemeProvider';
-import Navbar from '@/components/Navbar';
-import WhatsAppButton from '@/components/WhatsAppButton';
-import Footer from '@/components/Footer';
+import PublicShell from '@/components/PublicShell';
 
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] });
 const geistMono = Geist_Mono({ variable: '--font-geist-mono', subsets: ['latin'] });
@@ -101,10 +99,7 @@ export default function RootLayout({
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-          <WhatsAppButton />
+          <PublicShell>{children}</PublicShell>
         </ThemeProvider>
       </body>
     </html>
