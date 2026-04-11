@@ -69,13 +69,37 @@ export default function CampaignDetailPage() {
     router.push('/admin/campaigns');
   };
 
-  const handleStatusChange = async (status: 'sending' | 'cancelled') => {
-    const { error } = await supabase.from('campaigns').update({ status }).eq('id', id);
+  const [launching, setLaunching] = useState(false);
+
+  const handleLaunch = async () => {
+    if (!confirm('Lancer l\'envoi réel de cette campagne ?')) return;
+    setLaunching(true);
+
+    try {
+      const res = await fetch(`/api/campaigns/${id}/send`, { method: 'POST' });
+      const data = await res.json();
+
+      if (!res.ok) {
+        showToast('error', data.error ?? 'Erreur lors du lancement.');
+        setLaunching(false);
+        return;
+      }
+
+      showToast('success', `Campagne terminée : ${data.sent} envoyé(s), ${data.failed} échoué(s).`);
+      fetchData();
+    } catch {
+      showToast('error', 'Erreur réseau.');
+    }
+    setLaunching(false);
+  };
+
+  const handleCancel = async () => {
+    const { error } = await supabase.from('campaigns').update({ status: 'cancelled' }).eq('id', id);
     if (error) {
       showToast('error', error.message);
       return;
     }
-    showToast('success', status === 'sending' ? 'Campagne lancée !' : 'Campagne annulée.');
+    showToast('success', 'Campagne annulée.');
     fetchData();
   };
 
@@ -201,16 +225,19 @@ export default function CampaignDetailPage() {
           <div className="flex gap-2 flex-shrink-0">
             {campaign.status === 'draft' && (
               <button
-                onClick={() => handleStatusChange('sending')}
+                onClick={handleLaunch}
+                disabled={launching}
                 className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold
-                  bg-[#002B5C] text-white hover:bg-[#003d80] transition-colors"
+                  bg-[#002B5C] text-white hover:bg-[#003d80] disabled:opacity-60
+                  transition-colors"
               >
-                <Play size={14} /> Lancer
+                {launching ? <Loader2 size={14} className="animate-spin" /> : <Play size={14} />}
+                {launching ? 'Envoi en cours…' : 'Lancer l\'envoi'}
               </button>
             )}
             {campaign.status === 'sending' && (
               <button
-                onClick={() => handleStatusChange('cancelled')}
+                onClick={handleCancel}
                 className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold
                   bg-red-600 text-white hover:bg-red-700 transition-colors"
               >
