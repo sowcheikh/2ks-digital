@@ -11,6 +11,7 @@ const navLinks = [
   { label: 'Accueil',    href: '/',          external: false },
   { label: 'Services',   href: '/services',  external: false },
   { label: 'Campagnes',  href: '/campaigns', external: false },
+  { label: 'Cartes',     href: '/cartes',    external: false },
   { label: 'À propos',   href: '/about',     external: false },
   { label: 'Contact',    href: '/contact',   external: false },
   {

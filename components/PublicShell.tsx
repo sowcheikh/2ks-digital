@@ -7,9 +7,12 @@ import WhatsAppButton from '@/components/WhatsAppButton';
 
 export default function PublicShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isAdmin = pathname.startsWith('/admin');
+  const isBare =
+    pathname.startsWith('/admin') ||
+    pathname.startsWith('/account') ||
+    pathname.startsWith('/carte/');
 
-  if (isAdmin) {
+  if (isBare) {
     return <>{children}</>;
   }
 

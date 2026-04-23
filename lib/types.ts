@@ -33,3 +33,36 @@ export interface CampaignMessage {
   sent_at: string | null;
   contact?: Contact;
 }
+
+export interface CardSocials {
+  whatsapp?: string;
+  linkedin?: string;
+  instagram?: string;
+  tiktok?: string;
+  facebook?: string;
+  snapchat?: string;
+}
+
+export interface BusinessCard {
+  id: string;
+  user_id: string;
+  slug: string;
+  first_name: string;
+  last_name: string;
+  title: string | null;
+  email: string | null;
+  phone: string | null;
+  website_url: string | null;
+  avatar_url: string | null;
+  socials: CardSocials;
+  theme: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Profile {
+  id: string;
+  email: string | null;
+  is_premium: boolean;
+  created_at: string;
+}

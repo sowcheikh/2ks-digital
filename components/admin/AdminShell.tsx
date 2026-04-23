@@ -8,6 +8,7 @@ import {
   LayoutDashboard,
   Users,
   Megaphone,
+  CreditCard,
   LogOut,
   Menu,
   X,
@@ -19,6 +20,7 @@ const sidebarLinks = [
   { label: 'Dashboard',  href: '/admin',           icon: LayoutDashboard },
   { label: 'Contacts',   href: '/admin/contacts',  icon: Users },
   { label: 'Campagnes',  href: '/admin/campaigns', icon: Megaphone },
+  { label: 'Cartes',     href: '/admin/cards',     icon: CreditCard },
 ];
 
 export default function AdminShell({ children }: { children: React.ReactNode }) {
