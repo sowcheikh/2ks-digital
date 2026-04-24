@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sun, Moon, Menu, X, ExternalLink } from 'lucide-react';
 import { useTheme } from './ThemeProvider';
+import { track } from '@/lib/plausible';
 
 const navLinks = [
   { label: 'Accueil',    href: '/',          external: false },
@@ -29,15 +30,12 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
-    /* set on mount in case page is already scrolled */
-    setScrolled(window.scrollY > 20);
+    handleScroll();
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
+  const closeMobileMenu = () => setIsOpen(false);
 
   /* True when we're floating over a dark hero (not yet scrolled) */
   const isTransparent = !scrolled;
@@ -84,6 +82,9 @@ export default function Navbar() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() =>
+                  track('ClickNav', { label: link.label, href: link.href })
+                }
                 whileHover={{ scale: 1.05 }}
                 className={`flex items-center gap-1 px-4 py-2 rounded-full text-sm font-medium
                   transition-colors duration-200 ${
@@ -99,6 +100,9 @@ export default function Navbar() {
               <motion.div key={link.href} whileHover={{ scale: 1.05 }}>
                 <Link
                   href={link.href}
+                  onClick={() =>
+                    track('ClickNav', { label: link.label, href: link.href })
+                  }
                   className={`relative px-4 py-2 rounded-full text-sm font-medium
                     transition-colors duration-200 ${
                       isActive
@@ -177,6 +181,10 @@ export default function Navbar() {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() =>
+                        track('ClickNav', { label: link.label, href: link.href })
+                      }
+                      onClickCapture={closeMobileMenu}
                       className="flex items-center justify-between px-4 py-3 rounded-xl font-medium
                         bg-[#002B5C] text-white text-sm"
                     >
@@ -186,6 +194,10 @@ export default function Navbar() {
                   ) : (
                     <Link
                       href={link.href}
+                      onClick={() =>
+                        track('ClickNav', { label: link.label, href: link.href })
+                      }
+                      onClickCapture={closeMobileMenu}
                       className={`block px-4 py-3 rounded-xl text-sm font-medium transition-colors duration-200
                         ${
                           pathname === link.href

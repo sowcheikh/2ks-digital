@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { MessageCircle } from 'lucide-react';
+import { track } from '@/lib/plausible';
 
 const WA_LINK = 'https://wa.me/221771384209';
 
@@ -14,6 +15,7 @@ export default function WhatsAppButton() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Contacter sur WhatsApp"
+        onClick={() => track('ClickWhatsApp', { placement: 'floating' })}
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 1.5, type: 'spring', stiffness: 200 }}

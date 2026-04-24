@@ -13,6 +13,7 @@ import {
   Phone,
   ChevronDown,
 } from 'lucide-react';
+import { track } from '@/lib/plausible';
 
 type FormStatus = 'idle' | 'loading' | 'success' | 'error';
 
@@ -102,14 +103,17 @@ export default function ContactPage() {
       const data = await res.json();
 
       if (!res.ok) {
+        track('ContactSubmit', { status: 'error' });
         setErrorMsg(data.error ?? 'Une erreur est survenue.');
         setStatus('error');
         return;
       }
 
+      track('ContactSubmit', { status: 'success' });
       setStatus('success');
       setForm({ name: '', email: '', message: '' });
     } catch {
+      track('ContactSubmit', { status: 'network_error' });
       setErrorMsg('Impossible de se connecter au serveur. Réessayez.');
       setStatus('error');
     }

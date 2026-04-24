@@ -13,6 +13,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import BusinessCardVisual from '@/components/cards/BusinessCardVisual';
+import { track } from '@/lib/plausible';
 
 const features = [
   {
@@ -100,6 +101,7 @@ export default function CartesLandingPage() {
             <div className="flex flex-wrap gap-3">
               <Link
                 href="/account/signup"
+                onClick={() => track('ClickSignup', { from: '/cartes' })}
                 className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full
                   bg-[#E31837] hover:bg-[#c41530] text-white font-bold text-sm transition-colors"
               >
@@ -108,6 +110,7 @@ export default function CartesLandingPage() {
               </Link>
               <Link
                 href="/account/login"
+                onClick={() => track('ClickLogin', { from: '/cartes' })}
                 className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full
                   bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-sm transition-colors"
               >

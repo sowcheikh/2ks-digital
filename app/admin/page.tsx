@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import {
   Users,
+  CreditCard,
   Megaphone,
   Send,
   CheckCircle2,
@@ -19,6 +20,7 @@ import { createClient } from '@/lib/supabase-client';
 interface Stats {
   totalContacts: number;
   totalCampaigns: number;
+  totalCards: number;
   totalSent: number;
   totalDelivered: number;
   totalFailed: number;
@@ -28,6 +30,7 @@ export default function AdminDashboardPage() {
   const [stats, setStats] = useState<Stats>({
     totalContacts: 0,
     totalCampaigns: 0,
+    totalCards: 0,
     totalSent: 0,
     totalDelivered: 0,
     totalFailed: 0,
@@ -41,24 +44,33 @@ export default function AdminDashboardPage() {
     const fetchStats = async () => {
       const supabase = createClient();
 
-      const [contactsRes, campaignsRes] = await Promise.all([
+      const [contactsRes, campaignsCountRes, cardsRes, recentCampaignsRes, campaignMetricsRes] = await Promise.all([
         supabase.from('contacts').select('id', { count: 'exact', head: true }),
-        supabase.from('campaigns').select('*').order('created_at', { ascending: false }).limit(5),
+        supabase.from('campaigns').select('id', { count: 'exact', head: true }),
+        supabase.from('business_cards').select('id', { count: 'exact', head: true }),
+        supabase
+          .from('campaigns')
+          .select('id,name,channel,status,created_at')
+          .order('created_at', { ascending: false })
+          .limit(5),
+        supabase.from('campaigns').select('sent_count,delivered_count,failed_count'),
       ]);
 
-      const campaigns = campaignsRes.data ?? [];
-      const totalSent = campaigns.reduce((sum, c) => sum + (c.sent_count ?? 0), 0);
-      const totalDelivered = campaigns.reduce((sum, c) => sum + (c.delivered_count ?? 0), 0);
-      const totalFailed = campaigns.reduce((sum, c) => sum + (c.failed_count ?? 0), 0);
+      const recentCampaignsData = recentCampaignsRes.data ?? [];
+      const campaignMetrics = campaignMetricsRes.data ?? [];
+      const totalSent = campaignMetrics.reduce((sum, c) => sum + (c.sent_count ?? 0), 0);
+      const totalDelivered = campaignMetrics.reduce((sum, c) => sum + (c.delivered_count ?? 0), 0);
+      const totalFailed = campaignMetrics.reduce((sum, c) => sum + (c.failed_count ?? 0), 0);
 
       setStats({
         totalContacts: contactsRes.count ?? 0,
-        totalCampaigns: campaigns.length,
+        totalCampaigns: campaignsCountRes.count ?? 0,
+        totalCards: cardsRes.count ?? 0,
         totalSent,
         totalDelivered,
         totalFailed,
       });
-      setRecentCampaigns(campaigns);
+      setRecentCampaigns(recentCampaignsData);
       setLoading(false);
     };
 
@@ -68,6 +80,7 @@ export default function AdminDashboardPage() {
   const statCards = [
     { label: 'Contacts', value: stats.totalContacts, icon: Users, color: '#002B5C', href: '/admin/contacts' },
     { label: 'Campagnes', value: stats.totalCampaigns, icon: Megaphone, color: '#E31837', href: '/admin/campaigns' },
+    { label: 'Cartes', value: stats.totalCards, icon: CreditCard, color: '#7c3aed', href: '/admin/cards' },
     { label: 'Messages envoyés', value: stats.totalSent, icon: Send, color: '#25d366' },
     { label: 'Livrés', value: stats.totalDelivered, icon: CheckCircle2, color: '#0ea5e9' },
     { label: 'Échoués', value: stats.totalFailed, icon: AlertCircle, color: '#ef4444' },

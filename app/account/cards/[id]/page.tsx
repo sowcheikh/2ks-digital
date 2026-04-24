@@ -18,6 +18,7 @@ import CardForm, { type CardFormValues } from '@/components/cards/CardForm';
 import BusinessCardVisual from '@/components/cards/BusinessCardVisual';
 import { createClient } from '@/lib/supabase-client';
 import type { BusinessCard } from '@/lib/types';
+import { track } from '@/lib/plausible';
 
 export default function EditCardPage() {
   const params = useParams<{ id: string }>();
@@ -81,6 +82,7 @@ export default function EditCardPage() {
 
   const handleShare = async () => {
     if (!card) return;
+    track('CardShare', { where: 'account', slug: card.slug });
     if (navigator.share) {
       try {
         await navigator.share({
@@ -97,6 +99,7 @@ export default function EditCardPage() {
 
   const handleDownload = async () => {
     if (!cardRef.current) return;
+    track('CardDownload', { where: 'account', slug: card?.slug ?? 'unknown' });
     const dataUrl = await toPng(cardRef.current, {
       pixelRatio: 3,
       cacheBust: true,

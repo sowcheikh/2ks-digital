@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
+import Script from 'next/script';
 import './globals.css';
 import ThemeProvider from '@/components/ThemeProvider';
 import PublicShell from '@/components/PublicShell';
@@ -83,6 +84,11 @@ const jsonLd = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const plausibleDomain =
+    process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN ?? '2ksdigital.com';
+  const plausibleApiHost =
+    process.env.NEXT_PUBLIC_PLAUSIBLE_API_HOST ?? 'https://plausible.io';
+
   return (
     <html lang="fr" suppressHydrationWarning>
       <head>
@@ -95,6 +101,14 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+
+        {/* Plausible Analytics (privacy-friendly) */}
+        <Script
+          defer
+          data-domain={plausibleDomain}
+          src={`${plausibleApiHost}/js/script.js`}
+          strategy="afterInteractive"
         />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
